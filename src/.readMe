@@ -1,0 +1,316 @@
+ReadME:
+
+This program analyzes the contents of web pages belonging to the CIA world factbook site.
+
+Note: once the URLs were constructed, I saved page contents onto files to allow for faster access
+of data.
+
+EXTRA CREDIT 1: GUI CREATED
+EXTRA CREDIT 2: ALL QUESTS FOR HALO 4 COMPLETED.
+
+Instructions:
+
+When the user prompts the program, he will see a GUI mainframe display on his screen with buttons
+corresponding to questions he can find the answer to. Upon clicking a button, the user
+will be prompted to enter (where necessary) certain specifics - such as the continent, or the 
+specific piece of information etc. The answers will be displayed on the white panel to the right.
+If the user input is wrong, an error message will be shown and he will have to re-enter his input.
+
+Algorithms:
+
+Question 1: Finding countries that are prone to a hazard:
+
+For this question, I compiled some regular expressions corresponding to all the continents - so that when the user
+enters a specific continent, we choose that pattern. We loop through the contents, and once this
+pattern matches (i.e. country in chosen coordinate), we loop through again with the specific hazard
+as a second pattern. If there is a match with this pattern, then we add the country to an arraylist of countries
+and print this arraylist at the end.
+
+Answers: countries in South America prone to earthquakes:
+
+Argentina
+Chile
+Colombia
+Ecuador
+Peru
+
+Question 2: Lowest elevation point
+
+First match the continent pattern - same as above. Also have a regular expressions that finds negative or positive
+digits. Loop through contents - once we find line called "lowest point", we find a match for 
+the digit pattern. We parse this number out and store it in an array list. also add country name to arraylist
+At the end, we find the minimum elavation and its index - and consequently find the relevant country.
+
+Answers: countries in Europe with min elevation:
+
+Denmark, Netherlands
+
+Question 3: countries in a specified hemisphere.
+
+Loop through the contents of each page. I have a decimal digit regex along with N,E,S,W. Thus,
+based on the user specified hemisphere, we look for countries whose geographic coordinates
+make it lie in the relevant hemisphere (specified by the pattern). 
+If the pattern is found, that country is added to an array list of country names
+
+Answers: countries in southeastern hemisphere
+
+Angola
+Antarctica
+Ashmore and Cartier Islands
+Australia
+Botswana
+Bouvet Island
+British Indian Ocean Territory
+Burundi
+Christmas Island
+Cocos (Keeling) Islands
+Comoros
+Congo, Republic of the
+Coral Sea Islands
+Fiji
+French Southern and Antarctic Lands
+Gabon
+Heard Island and McDonald Islands
+Indonesia
+Lesotho
+Madagascar
+Malawi
+Mauritius
+Mozambique
+Namibia
+Nauru
+New Caledonia
+New Zealand
+Norfolk Island
+Papua New Guinea
+Rwanda
+Seychelles
+Solomon Islands
+South Africa
+Swaziland
+Tanzania
+Timor-Leste
+Tuvalu
+Vanuatu
+Zambia
+Zimbabwe
+
+Question 4: number of political parties:
+
+First loop through contents to see if country lies in continent specified by user. If the pattern is found,
+I find the line that contains "political parties and leaders". I noticed that political parties were
+split by semicolons, thus i use the "split()" method and split the lines till I reach the next category.
+Once this is done, the number of political parties is simply the length of the array -1. If this number
+is greater than the number specified by the user, that country is added to the arraylist.
+
+Answers: countries in asia with more than 10 political parties
+
+Afghanistan
+Azerbaijan
+Georgia
+India
+Iraq
+Israel
+Jordan
+Kazakhstan
+Nepal
+Pakistan
+Turkey
+
+Question 5: color of flag:
+
+Loop through contents and if the line contains "Flag Description", I examine the contents after.
+If it has the color with spaces (to prevent wrong results - for example "red" can be found in the word 
+"centered"), then we add the country to our array list.
+
+Answers: countries with blue flags:
+
+Andorra
+Anguilla
+Antigua and Barbuda
+Argentina
+Armenia
+Aruba
+Australia
+Azerbaijan
+Barbados
+Belize
+Bosnia and Herzegovina
+Botswana
+Brazil
+British Indian Ocean Territory
+Bulgaria
+Cambodia
+Cape Verde
+Cayman Islands
+Central African Republic
+Chad
+Chile
+Christmas Island
+Colombia
+Congo, Democratic Republic of the
+Costa Rica
+Croatia
+Cuba
+Curacao
+Czech Republic
+Djibouti
+Dominican Republic
+Ecuador
+El Salvador
+Equatorial Guinea
+Eritrea
+Estonia
+Ethiopia
+Falkland Islands (Islas Malvinas)
+Faroe Islands
+Fiji
+Finland
+France
+French Polynesia
+Gabon
+Gambia, The
+Greece
+Guam
+Guatemala
+Haiti
+Honduras
+Iceland
+India
+Israel
+Kazakhstan
+Kiribati
+Korea, North
+Korea, South
+Kosovo
+Laos
+Lesotho
+Liberia
+Liechtenstein
+Luxembourg
+Malaysia
+Marshall Islands
+Mauritius
+Micronesia, Federated States of
+Moldova
+Mongolia
+Montenegro
+Montserrat
+Namibia
+Nauru
+Nepal
+Netherlands
+New Zealand
+Nicaragua
+Niue
+Northern Mariana Islands
+Norway
+Palau
+Panama
+Paraguay
+Philippines
+Pitcairn Islands
+Puerto Rico
+Romania
+Rwanda
+Saint Helena, Ascension, and Tristan da Cunha
+Saint Lucia
+Saint Pierre and Miquelon
+Saint Vincent and the Grenadines
+Samoa
+San Marino
+Seychelles
+Sierra Leone
+Sint Maarten
+Slovakia
+Slovenia
+Solomon Islands
+Somalia
+South Africa
+South Georgia and South Sandwich Islands
+South Sudan
+Swaziland
+Sweden
+Taiwan
+Tanzania
+Thailand
+Tokelau
+Tuvalu
+Ukraine
+United Kingdom
+United States
+Uzbekistan
+Venezuela
+Virgin Islands
+
+Question 6: Finding 5 countries with highesht electrcity consumption/ per capita.
+
+Loop through the contents and first find the string Population and consequently, use the 
+digit regex to parse out the population value. I also have a boolean because in some cases,
+there are countries with a population but no electricity consumption. This is to ensure that
+eventually the two array lists are of the same size. I then look for the electricity consumption
+value using another digit parse. Then I have if statements to account for "million, billion" etc
+and then I multiply approporiately. This is stored in an array list of type long as trillion exceeds
+the int literal capacity.Once this is done, consumption is divided by population and the values added 
+to an array list. From there, I use the abstract class collections to find the maximums - and then remove
+that entry and repeat the process five times.
+
+Answers:
+
+Iceland
+Norway
+Kuwait
+Canada
+Finland
+
+Question 7: Countries landlocked/embedded in one country.
+
+Loop through the contents till the word "landlocked" is found. Then I step back to find the string "border countries".
+I then look for the a comma in the line after because this would indicated more than one bordering country.
+ if there is no comma, then it is bounded by one country and the name is added. I also employ a LinkedHashSet
+ that strips duplicates.
+ 
+ Answers:
+ 
+Holy See (Vatican City)
+Lesotho
+San Marino
+
+Question 8: Maximing capitals given user specified grid:
+
+Loop through contents. I look for the line "Capital:". If that is found, then I look at the next line
+and parse the latitudes and longitudes by first using the split() method to separate them and then by 
+using Double.parseDouble(). I also account for a scale of -180 to 180 and thus if south or west is found
+then the coordinate is assigned a negative value. Once I have the coordinates, I create a 370 by 170 array to
+simulate latitude and longitude. I assign "left most coordinates" on this array and consequently, want 
+to find the capitals clustered around these coordinates. I increment by 1 to create all possible grids
+of a user specified dimension. For each "left most coordinate", I find the number of capitals
+that are within the grid dimension and add them to a hash set - with a counter that keeps track of the number
+of adjacencies. Once all the hash sets are created, I find the index where counter is maximum and consequently
+find the capitals that are in the relevant set.These are the countries we want to find.
+
+Answers: maximum capitals within 10X10 grid
+
+Santo Domingo
+Charlotte Amalie
+Willemstad
+Saint George's
+Saint John's
+Basseterre
+Caracas
+Road Town
+The Valley
+Plymouth
+Kingstown
+Roseau
+Port of Spain
+Oranjestad
+Castries
+Marigot
+Gustavia
+San Juan
+
+ 
+ I have done two wild card questions: the first one lists all the countries that are islands. The second one
+ lists the countries whose government type is exclusively a dictatorship(as according to the fact book)
+ 
